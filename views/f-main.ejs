@@ -9,4 +9,43 @@
 
     <input type="submit" class="fadeIn fourth" /> crea torneo
   </form>
+
+  <h2> Torneos actuales</h2>
+  <div id="tournamentsContainer" class="tournaments">
+    <% for (var i = 0; i < tournaments.length; i++) { %>
+        <form action= <%= "/t/" + tournaments[i]._id %> method="GET">
+      <div id= "specificTournament" >
+      <h4 >
+        <%= tournaments[i].name %>
+      </h4>
+      <h5 >
+        <%= tournaments[i].description %>
+      </h5>
+      <h5 >
+        owner: <%= tournaments[i].owner %>
+      </h5>
+      <button class="verMas"> Ver Más </button>
+      </div>
+      <br>
+    </form>
+      <% } %>
+    </div>
+
+<script>
+  /*  $(document).ready(function() {
+        $(".verMas").click (function(event){
+        event.preventDefault();
+        console.log("hola");
+        var id = $(this).parent().attr("tId");
+        console.log("xd is " +  id);
+
+        $.ajax({ url: "/t/" + id, type: "GET",
+            success: function(){
+                console.log("id of tournament is " + id);
+            }
+        });
+
+        });
+    }); */
+    </script>
 <%- include ("./partials/footer") %>

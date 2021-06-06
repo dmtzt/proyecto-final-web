@@ -17,9 +17,13 @@ const TournamentSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
+    isPublic:{
+        type: Boolean,
+        default: true
+    },
     date:{
         type: Date,
-        defult: Date.now
+        default: Date.now
     }
 });
 

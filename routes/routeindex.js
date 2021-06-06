@@ -41,8 +41,15 @@ router.get('/sign-in', (req, res) => {
     res.render('index');
   }else{
     var name = req.user.name;
+    var tournaments =[];
     console.log(req.user);
-    res.render('f-main', {name});
+    Tournament.find({}, function (err, data){
+      data.forEach(function(value){
+        tournaments.push(value);
+      });
+      console.log(tournaments);
+    res.render('f-main', {name, tournaments});
+    });
   }
 });
 
@@ -78,7 +85,15 @@ router.post('/sign-up', (req, res) => {
     console.log(errors);
   }
   else{
-    User.findOne({email: email_register}).then(user =>{
+    User.findOne(
+      // busca que el ID del usuario sea unico y que no tenga la cuenta de correo ya registrada
+    {
+      $or: [
+        { userID : userID_register },
+        { email: email_register }
+      ]
+    }
+      ).then(user =>{
       if (user){ // el usuario ya esta registrado
         console.log("Ya esta registrado lol");
       }
@@ -134,6 +149,7 @@ router.post('/createT', (req, res) => {
     name: name,
     description: description,
     owner: req.user.userID,
+    isPublic: true, // por ahora los torneos serán públicos
     users: req.user.userID
   });
   newTournament.save();
@@ -147,9 +163,15 @@ router.get('/t', (req, res) => {
 });
 
 // Single tournament by id
-router.get('/t/:id', (req, res) => {
+router.get('/t/:id',  async function (req, res) {
   var id = req.params.id;
-  res.render('t-single');
+  console.log("id received is " + id);
+
+  var tournamentSingle = await Tournament.findById(id, (err, data) => {
+    console.log("asklaml");
+});
+  console.log(tournamentSingle);
+  res.render('t-single', {tournamentSingle});
 });
 
 // Join a tournament

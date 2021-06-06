@@ -1,0 +1,28 @@
+<%- include ("./partials/header") %>
+<body>
+    <div id="tournamentsContainer" class="tournaments">
+        <div id= "specificTournament" >
+        <h4 >
+        <%= tournamentSingle.name %>
+        </h4>
+        <h5 >
+        <%= tournamentSingle.description %>
+        </h5>
+        <h5 >
+        owner: <%= tournamentSingle.owner %>
+        </h5>
+        </div>
+        <br>
+        <h4 >Participants: </h4>
+        <ul>
+        <% for (var i = 0; i < tournamentSingle.users.length; i++) { %>
+          <div id= "specificParticipant" >
+           <li> <%= tournamentSingle.users[i] %> </li> 
+          <% } %>
+    </div>
+    <form action="/sign-in" method="GET">
+
+        <button class="home"> Home </button>
+      </form>
+</body>
+<%- include ("./partials/footer") %>
