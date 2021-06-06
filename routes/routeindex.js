@@ -35,14 +35,20 @@ router.get('/', async function (req,res) {
 // Sign-in get and post routes
 router.get('/sign-in', (req, res) => {
   // TODO
-  var mail = req.body.email;
-  res.render('sign-in', {mail});
+  //console.log(req.user);
+  if (typeof req.user == "undefined"){
+    res.render('index');
+  }else{
+    var name = req.user.name
+    console.log(req.user);
+    res.render('f-main', {name});
+  }
 });
 
 router.post('/sign-in', (req, res, next) => {
   passport.authenticate("local",{
     successRedirect: "/sign-in", 
-    failureRedirect: "/xd"
+    failureRedirect: "/"
   })(req, res, next);
   //res.render('index');
 });
@@ -55,15 +61,15 @@ router.get('/sign-up', (req, res) => {
 
 router.post('/sign-up', (req, res) => {
   // TODO
-  const {email, password, password2, name, userID} = req.body;
+  const {email_register, password_register, password2_register, name_register, userID_register} = req.body;
 
-  if (!email || !password || !name || !userID){
+  if (!email_register || !password_register || !name_register || !userID_register || !password2_register){
     errors.push({ msg: "Please fill in all fields"})
   }
-  if (password !== password2){
+  if (password_register !== password2_register){
     errors.push({ msg: "Passwords do not match"})
   }
-  if (password.length < 6){
+  if (password_register.length < 6){
     errors.push({ msg: "Passwords should be at least 6 characters long"})
   }
   if (errors.length > 0){
@@ -71,16 +77,16 @@ router.post('/sign-up', (req, res) => {
     console.log(errors);
   }
   else{
-    User.findOne({email: email}).then(user =>{
+    User.findOne({email: email_register}).then(user =>{
       if (user){ // el usuario ya esta registrado
         console.log("Ya esta registrado lol");
       }
       else{
         const newUser = new User({
-          userID: userID,
-          name: name,
-          email: email,
-          password: password
+          userID: userID_register,
+          name: name_register,
+          email: email_register,
+          password: password_register
         });
         // Hash
         bcrypt.genSalt(10, (errl, salt) => 
@@ -157,6 +163,12 @@ router.post('/f/:name/posts/', (req, res) => {
 
 router.get('*', (req,res) => {
   res.render('index');
+});
+
+router.get('/logout', (req,res) => {
+  req.logout();
+  console.log("supposedly logged out");
+  res.render('/');
 });
 
 module.exports = router;
