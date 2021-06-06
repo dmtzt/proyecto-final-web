@@ -10,6 +10,7 @@ require("dotenv").config();
 require('../config/passport')(passport);
 
 const User = require("../models/User");
+const Tournament = require("../models/Tournament");
 
 
 // torneos is the name of the db
@@ -39,7 +40,7 @@ router.get('/sign-in', (req, res) => {
   if (typeof req.user == "undefined"){
     res.render('index');
   }else{
-    var name = req.user.name
+    var name = req.user.name;
     console.log(req.user);
     res.render('f-main', {name});
   }
@@ -113,6 +114,33 @@ router.post('/sign-up', (req, res) => {
 });
 
 // Tournaments routes
+
+// CREATE TOURNAMENT
+
+router.get('/createT', (req, res) => {
+  if (typeof req.user == "undefined"){
+    res.render("index");
+  }
+  else{
+  var name = req.user.name;
+  res.render('t-create', {name});
+  }
+});
+
+
+router.post('/createT', (req, res) => {
+  var {name, description} = req.body;
+  const newTournament = new Tournament({
+    name: name,
+    description: description,
+    owner: req.user.userID,
+    users: req.user.userID
+  });
+  newTournament.save();
+  name = req.user.name;
+  res.render('f-main',{name});
+});
+
 // All tournaments
 router.get('/t', (req, res) => {
   res.render('t-main');
@@ -161,14 +189,16 @@ router.post('/f/:name/posts/', (req, res) => {
   res.render('f-main');
 });
 
-router.get('*', (req,res) => {
-  res.render('index');
+router.get('/logout', (req,res) => {
+  
+  req.session.destroy(function (err) {
+    console.log("supposedly logged out");
+    res.redirect('/'); //Inside a callback… bulletproof!
+  });
 });
 
-router.get('/logout', (req,res) => {
-  req.logout();
-  console.log("supposedly logged out");
-  res.render('/');
+router.get('*', (req,res) => {
+  res.render('index');
 });
 
 module.exports = router;

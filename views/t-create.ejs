@@ -1,0 +1,21 @@
+<%- include ("./partials/header") %>
+<p> Hello <%= name %> </p>
+<p> Crea un torneo </p>
+<form action="/createT" method="POST">
+    <input
+    type="text"
+    id="name"
+    name="name"
+    class="fadeIn second"
+    placeholder="nombre"
+  />
+    <input
+    type="text"
+    id="description"
+    name="description"
+    class="fadeIn second"
+    placeholder="descripcion"
+  />
+  <input type="submit" class="fadeIn fourth" />
+</form>
+<%- include ("./partials/footer") %>
