@@ -18,9 +18,14 @@
   },
   "homepage": "https://github.com/dmtzt/proyecto-final-web#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "mongodb": "^3.6.9",
     "mongoose": "^5.12.12",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   }
 }
