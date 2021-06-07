@@ -45,7 +45,12 @@ router.get('/home', (req, res) => {
     console.log(req.user);
     Tournament.find({}, function (err, data){
       data.forEach(function(value){
-        tournaments.push(value);
+        console.log("-------------");
+        console.log(value);
+        console.log("-------------");
+        if (!value.isPrivate){
+          tournaments.push(value);
+        }
       });
       console.log(tournaments);
     res.render('f-main', {name, tournaments});
@@ -142,18 +147,21 @@ router.get('/createT', (req, res) => {
 });
 
 
-router.post('/createT', (req, res) => {
-  var {name, description} = req.body;
+router.post('/createT', async function (req, res) {
+  var {name, description, isPrivate} = req.body;
+  var isPrivateBool = false;
+  if (isPrivate == "on"){
+    isPrivateBool = true;
+  }
   const newTournament = new Tournament({
     name: name,
     description: description,
     owner: req.user.userID,
-    isPublic: true, // por ahora los torneos serán públicos
+    isPrivate: isPrivateBool,
     users: req.user.userID
   });
-  newTournament.save();
-  name = req.user.name;
-  res.render('f-main',{name});
+  await newTournament.save();
+  res.redirect(req.baseUrl + "/home");
 });
 
 // All tournaments
@@ -236,6 +244,7 @@ router.post('/t/:id/join', async function (req, res) {
   }
 });
 
+
 // delete tournament
 router.post('/t/:id/deleteT', async function (req, res) {
   var id = req.params.id;
@@ -284,7 +293,10 @@ router.get('/logout', (req,res) => {
 });
 
 router.get('*', (req,res) => {
-  res.render('index');
+  req.session.destroy(function (err) {
+    console.log("supposedly logged out");
+    res.redirect('/'); //Inside a callback… bulletproof!
+  });
 });
 
 module.exports = router;

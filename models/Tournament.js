@@ -17,9 +17,9 @@ const TournamentSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    isPublic:{
+    isPrivate:{
         type: Boolean,
-        default: true
+        default: false
     },
     date:{
         type: Date,

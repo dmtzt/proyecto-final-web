@@ -10,7 +10,12 @@
     <input type="submit" class="fadeIn fourth" /> crea torneo
   </form>
 
-  <h2> Torneos actuales</h2>
+  <form action="/myAccount" method="GET">
+
+    <input type="submit" class="fadeIn fourth" /> mi cuenta
+  </form>
+
+  <h2> Torneos actuales públicos</h2>
   <div id="tournamentsContainer" class="tournaments">
     <% for (var i = 0; i < tournaments.length; i++) { %>
       <div id= "specificTournament" >
@@ -34,21 +39,45 @@
       <% } %>
     </div>
 
+    <input
+    type="text"
+    id="joinID"
+    name="joinID"
+    class="fadeIn second"
+    placeholder="join a tournament with an id"
+  />
+  <input type="submit" class="fadeIn fourth" id = "submitBtn"/>
+
 <script>
-  /*  $(document).ready(function() {
-        $(".verMas").click (function(event){
+    $(document).ready(function() {
+        $("#submitBtn").click (function(event){
         event.preventDefault();
         console.log("hola");
-        var id = $(this).parent().attr("tId");
-        console.log("xd is " +  id);
+        var id = $("#joinID").val();
+        console.log("id is " +  id);
 
-        $.ajax({ url: "/t/" + id, type: "GET",
-            success: function(){
-                console.log("id of tournament is " + id);
-            }
+        var request = $.ajax({
+          type: "POST",
+          url: "/t/" + id + "/join",
+          data: {saludo:"hola"},
+          dataType: "text"
+        });
+
+        //Este bloque se ejecutará si no hay error en la petición
+        request.done(function(respuesta) {
+            console.log(respuesta);
+            console.log(respuesta.foo); //foo es una propiedad (clave), del json que devuelve el servidor
+            //Tratamos a respuesta según sea el tipo  y la estructura  
+            location.href= "/t/" + id;
+            return;             
+        });
+
+        //Este bloque se ejecuta si hay un error
+        request.fail(function(jqXHR, textStatus) {
+            alert("Hubo un error: " + textStatus);
         });
 
         });
-    }); */
+    });
     </script>
 <%- include ("./partials/footer") %>
