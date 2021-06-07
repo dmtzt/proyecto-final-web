@@ -34,7 +34,7 @@ router.get('/', async function (req,res) {
 });
 
 // Sign-in get and post routes
-router.get('/sign-in', (req, res) => {
+router.get('/home', (req, res) => {
   // TODO
   //console.log(req.user);
   if (typeof req.user == "undefined"){
@@ -53,9 +53,9 @@ router.get('/sign-in', (req, res) => {
   }
 });
 
-router.post('/sign-in', (req, res, next) => {
+router.post('/home', (req, res, next) => {
   passport.authenticate("local",{
-    successRedirect: "/sign-in", 
+    successRedirect: "/home", 
     failureRedirect: "/"
   })(req, res, next);
   //res.render('index');
@@ -170,7 +170,38 @@ router.get('/t/:id',  async function (req, res) {
     console.log("asklaml");
 });
   console.log(tournamentSingle);
-  res.render('t-single', {tournamentSingle});
+  if (typeof req.user == "undefined"){
+    res.render("index");
+  }
+  else{
+    var uID = req.user.userID;
+    if (uID === tournamentSingle.owner){
+      res.render('t-single', {tournamentSingle, isOwner: true});
+    }
+    else{
+    res.render('t-single', {tournamentSingle, isOwner: false});
+    }
+  }
+});
+
+// Delete user from tournament
+router.post('/t/:id/delete/:uID',  async function (req, res) {
+  var id = req.params.id;
+  var uID = req.params.uID;
+  console.log("id received is " + id);
+  console.log("user id received is " + uID);
+
+  await Tournament.findById(id).updateOne({
+    $pull: {
+      users: {
+        $in: [uID]
+      }
+    }
+  }).then(
+    res.redirect(req.baseUrl + "/t/" + id)
+  );
+  res.end();
+  
 });
 
 // Join a tournament
@@ -201,8 +232,17 @@ router.post('/t/:id/join', async function (req, res) {
   var tournamentSingle = await Tournament.findById(id, (err, data) => {
     console.log("tournament retrieved");
   });
-  res.render('t-single', {tournamentSingle});
+  res.render('t-single', {tournamentSingle, isOwner: false});
   }
+});
+
+// delete tournament
+router.post('/t/:id/deleteT', async function (req, res) {
+  var id = req.params.id;
+  console.log("id of tournament to be deleted received is " + id);
+  await Tournament.findById(id).remove().then(
+    res.redirect(req.baseUrl + "/home/")
+  );
 });
 
 // Forums routes

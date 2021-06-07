@@ -17,12 +17,28 @@
         <ul>
         <% for (var i = 0; i < tournamentSingle.users.length; i++) { %>
           <div id= "specificParticipant" >
-           <li> <%= tournamentSingle.users[i] %> </li> 
+           <li> <%= tournamentSingle.users[i] %> 
+            <% if (isOwner && tournamentSingle.users[i] != tournamentSingle.owner) { %>
+              <form action= <%= "/t/" + tournamentSingle._id  + "/delete/"  + tournamentSingle.users[i]%> method="POST">
+              <button class="delete"> Delete </button>
+            </form>
+              <% } %>
+          </li> 
           <% } %>
     </div>
-    <form action="/sign-in" method="GET">
+    <form action="/home" method="GET">
 
         <button class="home"> Home </button>
       </form>
+
+      <form action= <%= "/t/" + tournamentSingle._id  + "/join/" %> method="POST">
+        <button class="join"> join </button>
+      </form>
+      <% if (isOwner) { %>
+        <form action= <%= "/t/" + tournamentSingle._id  + "/deleteT/" %> method="POST">
+          <button class="deleteT"> Delete Tournament </button>
+        </form>
+        <% } %>
+
 </body>
 <%- include ("./partials/footer") %>
