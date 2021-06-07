@@ -13,7 +13,6 @@
   <h2> Torneos actuales</h2>
   <div id="tournamentsContainer" class="tournaments">
     <% for (var i = 0; i < tournaments.length; i++) { %>
-        <form action= <%= "/t/" + tournaments[i]._id %> method="GET">
       <div id= "specificTournament" >
       <h4 >
         <%= tournaments[i].name %>
@@ -24,10 +23,14 @@
       <h5 >
         owner: <%= tournaments[i].owner %>
       </h5>
+      <form action= <%= "/t/" + tournaments[i]._id %> method="GET">
       <button class="verMas"> Ver Más </button>
+    </form>
+    <form action= <%= "/t/" + tournaments[i]._id  + "/join/" %> method="POST">
+      <button class="join"> join </button>
+    </form>
       </div>
       <br>
-    </form>
       <% } %>
     </div>
 

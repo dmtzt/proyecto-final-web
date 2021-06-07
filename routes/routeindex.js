@@ -69,6 +69,7 @@ router.get('/sign-up', (req, res) => {
 
 router.post('/sign-up', (req, res) => {
   // TODO
+  var errors = [];
   const {email_register, password_register, password2_register, name_register, userID_register} = req.body;
 
   if (!email_register || !password_register || !name_register || !userID_register || !password2_register){
@@ -117,9 +118,7 @@ router.post('/sign-up', (req, res) => {
         console.log("---------------");
         console.log(newUser);
         console.log("---------------");
-
-
-
+        // falta redirigir a pagina principal
       }
     });
   }
@@ -175,10 +174,35 @@ router.get('/t/:id',  async function (req, res) {
 });
 
 // Join a tournament
-router.post('/t/:id/join', (req, res) => {
+router.post('/t/:id/join', async function (req, res) {
   // TODO
+  if (typeof req.user == "undefined"){
+    res.render("index");
+  }
+  else{
+  var userID = req.user.userID;
   var id = req.params.id;
-  res.render('t-single');
+  console.log("id received for updating register is " + id);
+
+  var isPresent = await Tournament.findById(id).find({
+    users: {"$in": [userID]}
+  });
+
+  console.log(isPresent);
+
+  if (JSON.stringify(isPresent) === '[]'){
+    await Tournament.findById(id).updateOne(
+      { $push: { users: userID } }
+    );
+  } else{
+    console.log("User is already present");
+  };
+  
+  var tournamentSingle = await Tournament.findById(id, (err, data) => {
+    console.log("tournament retrieved");
+  });
+  res.render('t-single', {tournamentSingle});
+  }
 });
 
 // Forums routes
