@@ -4,4 +4,4 @@ NOTA:
 
 Para que el código funcione, agregar un archivo .env con la clave URISTRING
 
-URISTRING=<your-string-here>
+URISTRING=your-string-here
