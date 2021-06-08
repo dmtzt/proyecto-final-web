@@ -42,6 +42,7 @@ router.get('/home', (req, res) => {
   }else{
     var name = req.user.name;
     var tournaments =[];
+    var isPresent= [];
     console.log(req.user);
     Tournament.find({}, function (err, data){
       data.forEach(function(value){
@@ -50,10 +51,20 @@ router.get('/home', (req, res) => {
         console.log("-------------");
         if (!value.isPrivate){
           tournaments.push(value);
+          console.log("PROBANDO"); // arreglo que contiene valores true y false,
+                                    // dependiendo de si el usuario esta presente en el torneo o no
+          console.log(value.users.includes(req.user.userID));
+          if (value.users.includes(req.user.userID)){
+            isPresent.push(true);
+          }
+          else{
+            isPresent.push(false);
+          }
         }
       });
       console.log(tournaments);
-    res.render('f-main', {name, tournaments});
+      console.log(isPresent);
+    res.render('f-main', {name, tournaments, currentUser: req.user.userID, isPresent});
     });
   }
 });
@@ -184,10 +195,10 @@ router.get('/t/:id',  async function (req, res) {
   else{
     var uID = req.user.userID;
     if (uID === tournamentSingle.owner){
-      res.render('t-single', {tournamentSingle, isOwner: true});
+      res.render('t-single', {tournamentSingle, isOwner: true, currentUser: req.user.userID});
     }
     else{
-    res.render('t-single', {tournamentSingle, isOwner: false});
+    res.render('t-single', {tournamentSingle, isOwner: false, currentUser: req.user.userID});
     }
   }
 });
@@ -240,7 +251,7 @@ router.post('/t/:id/join', async function (req, res) {
   var tournamentSingle = await Tournament.findById(id, (err, data) => {
     console.log("tournament retrieved");
   });
-  res.render('t-single', {tournamentSingle, isOwner: false});
+  res.render('t-single', {tournamentSingle, isOwner: false, currentUser: req.user.userID});
   }
 });
 
@@ -252,6 +263,17 @@ router.post('/t/:id/deleteT', async function (req, res) {
   await Tournament.findById(id).remove().then(
     res.redirect(req.baseUrl + "/home/")
   );
+});
+
+// My account
+router.get('/myAccount', (req, res) => {
+  if (typeof req.user == "undefined"){
+    res.render("index");
+  }
+  else{
+    var user = req.user;
+    res.render('my-account', {user});
+  }
 });
 
 // Forums routes

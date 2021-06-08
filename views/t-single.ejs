@@ -5,7 +5,13 @@
         <h4 >
         <%= tournamentSingle.name %>
         </h4>
-        <h5 >
+        <p>ID para unirse:  <%= tournamentSingle._id %></p>
+        <% if (tournamentSingle.isPrivate) { %>
+          <p> Torneo privado</p>
+          <% } else { %>
+            <p> Torneo público</p>
+          <% } %>
+        <h5>
         <%= tournamentSingle.description %>
         </h5>
         <h5 >
@@ -23,6 +29,11 @@
               <button class="delete"> Delete </button>
             </form>
               <% } %>
+              <% if (tournamentSingle.users[i] == currentUser && !isOwner) { %>
+                <form action= <%= "/t/" + tournamentSingle._id  + "/delete/"  + tournamentSingle.users[i]%> method="POST">
+                <button class="Exit"> Exit from tournament </button>
+                </form>
+                <% } %>
           </li> 
           <% } %>
     </div>
@@ -30,10 +41,11 @@
 
         <button class="home"> Home </button>
       </form>
-
+      <% if (!isOwner) { %>
       <form action= <%= "/t/" + tournamentSingle._id  + "/join/" %> method="POST">
         <button class="join"> join </button>
       </form>
+      <% } %>
       <% if (isOwner) { %>
         <form action= <%= "/t/" + tournamentSingle._id  + "/deleteT/" %> method="POST">
           <button class="deleteT"> Delete Tournament </button>

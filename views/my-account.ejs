@@ -1,0 +1,15 @@
+<%- include ("./partials/header") %>
+<form action="/home" method="GET">
+
+    <button class="home"> Home </button>
+  </form>
+  <h4 >
+    <%= user.name %>
+  </h4>
+  <h5 >
+    <%= user.userID %>
+  </h5>
+  <h5 >
+    owner: <%= user.email %>
+  </h5>
+<%- include ("./partials/footer") %>

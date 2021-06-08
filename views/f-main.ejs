@@ -31,9 +31,11 @@
       <form action= <%= "/t/" + tournaments[i]._id %> method="GET">
       <button class="verMas"> Ver Más </button>
     </form>
-    <form action= <%= "/t/" + tournaments[i]._id  + "/join/" %> method="POST">
-      <button class="join"> join </button>
-    </form>
+    <% if (tournaments[i].owner != currentUser && !isPresent[i]) { %>
+      <form action= <%= "/t/" + tournaments[i]._id  + "/join/" %> method="POST">
+        <button class="join"> join </button>
+      </form>
+      <% } %>
       </div>
       <br>
       <% } %>
