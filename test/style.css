@@ -32,7 +32,7 @@ html {
   /* STRUCTURE */
   
   .wrapper {
-    background-color: gray;
+    background-color: #34373a;
     display: flex;
     align-items: center;
     flex-direction: column; 
@@ -57,7 +57,7 @@ html {
   }
   
   #formFooter {
-    background-color: #f6f6f6;
+    background-color: #de364d;
     border-top: 1px solid #dce8f1;
     padding: 25px;
     text-align: center;
@@ -280,6 +280,15 @@ html {
   } 
   
   #icon {
+    padding: 20px 0px 0px 0px;
     width:60%;
   }
   
+
+  #titlelabbel{
+    color: white;
+    background-color: #de364d;
+    padding: 10px 0px 10px 0px;
+    -webkit-border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
+  }

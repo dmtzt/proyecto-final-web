@@ -27,16 +27,18 @@
         }
     </script>
 
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
     <div class="wrapper fadeInDown">
         <div id="formContent">
           <!-- Tabs Titles -->
-      
+        
+          <!-- Title -->
+          <div id="titlelabbel">
+            <h1>- Sign Up -</h1>
+          </div>
+
           <!-- Icon -->
           <div class="fadeIn first">
             <img src="https://image.flaticon.com/icons/png/512/164/164600.png" id="icon" alt="User Icon" />
@@ -44,17 +46,48 @@
       
           <!-- Login Form -->
           <form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" >
+            <input
+            type="text"
+            id="userID_register"
+            name="userID_register"
+            class="fadeIn second"
+            placeholder="ID"
+          />
+            <input
+            type="text"
+            id="name_register"
+            name="name_register"
+            class="fadeIn second"
+            placeholder="Name"
+          />
+          <input
+            type="text"
+            id="email_register"
+            name="email_register"
+            class="fadeIn second"
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            id="password_register"
+            class="fadeIn third"
+            name="password_register"
+            placeholder="Password"
+          />
+          <input
+            type="password"
+            id="password2_register"
+            class="fadeIn third"
+            name="password2_register"
+            placeholder="Repeat Password"
+          />
             <br>
-            <input type="checkbox" onclick="myFunction()"> Show Password
-            <br>
-            <input type="submit" class="fadeIn fourth" value="Log In">
+            <input type="submit" class="fadeIn fourth" value="Sign Up" style="background-color: #de364d" >
           </form>
       
           <!-- Remind Passowrd -->
           <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
+            <a class="underlineHover" href="#" style="color: white" >Already have an account?</a>
           </div>
       
         </div>
