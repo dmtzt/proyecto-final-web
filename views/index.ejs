@@ -1,64 +1,66 @@
 <%- include ("./partials/header") %>
 <body>
-<div >
-    <h4>Register</h4>
-    <form action="/sign-up" method="POST">
+  <div class="container">
+    <div>
+      <h4>Register</h4>
+      <form action="/sign-up" method="POST">
+          <input
+          type="text"
+          id="userID_register"
+          name="userID_register"
+          class="fadeIn second"
+          placeholder="id"
+        />
+          <input
+          type="text"
+          id="name_register"
+          name="name_register"
+          class="fadeIn second"
+          placeholder="name"
+        />
         <input
-        type="text"
-        id="userID_register"
-        name="userID_register"
-        class="fadeIn second"
-        placeholder="id"
-      />
+          type="text"
+          id="email_register"
+          name="email_register"
+          class="fadeIn second"
+          placeholder="Email"
+        />
         <input
-        type="text"
-        id="name_register"
-        name="name_register"
-        class="fadeIn second"
-        placeholder="name"
-      />
+          type="password"
+          id="password_register"
+          class="fadeIn third"
+          name="password_register"
+          placeholder="Password"
+        />
+        <input
+          type="password"
+          id="password2_register"
+          class="fadeIn third"
+          name="password2_register"
+          placeholder="Password"
+        />
+        <input type="submit" class="fadeIn fourth" />
+      </form>
+    </div>
+    <!-- Login Form -->
+    <h4>Log In</h4>
+    <form action="/home" method="POST">
       <input
         type="text"
-        id="email_register"
-        name="email_register"
+        id="email"
+        name="email"
         class="fadeIn second"
         placeholder="Email"
       />
       <input
         type="password"
-        id="password_register"
+        id="password"
         class="fadeIn third"
-        name="password_register"
-        placeholder="Password"
-      />
-      <input
-        type="password"
-        id="password2_register"
-        class="fadeIn third"
-        name="password2_register"
+        name="password"
         placeholder="Password"
       />
       <input type="submit" class="fadeIn fourth" />
     </form>
   </div>
-  <!-- Login Form -->
-  <h4>Log In</h4>
-  <form action="/home" method="POST">
-    <input
-      type="text"
-      id="email"
-      name="email"
-      class="fadeIn second"
-      placeholder="Email"
-    />
-    <input
-      type="password"
-      id="password"
-      class="fadeIn third"
-      name="password"
-      placeholder="Password"
-    />
-    <input type="submit" class="fadeIn fourth" />
-  </form>
 </body>
 <%- include ("./partials/footer") %>
