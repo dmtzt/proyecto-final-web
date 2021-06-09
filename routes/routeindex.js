@@ -179,7 +179,27 @@ router.post('/createT', async function (req, res) {
 
 // All tournaments
 router.get('/t', (req, res) => {
-  res.render('t-main');
+  const tournaments_per_row = 3;
+  var tournaments = [];
+
+  var tournament = new Tournament ({
+    name: "Torneo",
+    description: "Descripción del torneo",
+    owner: "David",
+    users: [],
+    isPrivate: false
+  });
+
+  tournaments.push(tournament);
+  tournaments.push(tournament);
+  tournaments.push(tournament);
+  tournaments.push(tournament);
+
+  //console.log(tournaments.length % tournaments_per_row);
+  //const path = require('path');
+  //console.log(path.join(__dirname, '/public'));
+
+  res.render('t-main', {tournaments, tournaments_per_row});
 });
 
 // Single tournament by id
@@ -371,11 +391,11 @@ router.get('/logout', (req,res) => {
   });
 });
 
-router.get('*', (req,res) => {
-  req.session.destroy(function (err) {
-    console.log("supposedly logged out");
-    res.redirect('/'); //Inside a callback… bulletproof!
-  });
-});
+// router.get('*', (req,res) => {
+//   req.session.destroy(function (err) {
+//     console.log("supposedly logged out");
+//     res.redirect('/'); //Inside a callback… bulletproof!
+//   });
+// });
 
 module.exports = router;

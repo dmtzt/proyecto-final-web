@@ -1,0 +1,32 @@
+<%- include ("./partials/header") %>
+<div class="container">
+    <div class="row mt-3 justify-content-md-center">
+        <div class="jumbotron">
+            <h1 class="display-4">Torneos</h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-4">
+            <p>¡Explora los torneos en curso, busca tus jugadores favoritos y participa!</p>
+        </div>
+    </div>
+    <% for (var i = 0; i < tournaments.length; i++) { %>
+        <% if (i % tournaments_per_row == 0) { %>
+    <div class="row mt-3 justify-content-md-center">
+        <% } %>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><%= tournaments[i].name %></h5>
+                    <p class="card-text"><small class="text-muted"><%= tournaments[i].date %></small></p>
+                    <p class="card-text"><%= tournaments[i].description %></p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+                <div class="card-footer"><%= tournaments[i].owner %></div>
+            </div>
+        </div>
+        <% if ((i + 1) % tournaments_per_row == 0) { %>
+    </div>
+        <% } %>
+    <% } %>
+</div>
+<%- include ("./partials/footer") %>
