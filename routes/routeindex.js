@@ -27,6 +27,8 @@ mongoose.connect(uri,{
   .then(db => console.log('db connected'))
   .catch(err => console.log(err));
 
+//mongoose.set('useCreateIndex', true)
+
 // Main route
 router.get('/', async function (req,res) {
   // TODO
@@ -266,13 +268,68 @@ router.post('/t/:id/deleteT', async function (req, res) {
 });
 
 // My account
-router.get('/myAccount', (req, res) => {
+router.get('/myAccount', async function (req, res) {
   if (typeof req.user == "undefined"){
     res.render("index");
   }
   else{
     var user = req.user;
-    res.render('my-account', {user});
+    var tournaments = [];
+    var tournamentsParticipant = [];
+
+    await Tournament.find({owner: req.user.userID}, function (err, data){
+      data.forEach(function(value){
+        tournaments.push(value);
+        console.log("TOURNAMENT FOUND: - --  - -- - - -");
+        console.log(value);
+      });
+    });
+
+    await Tournament.find({
+      users: {"$in": [req.user.userID]}
+    }, function(err, data){
+      data.forEach(function (value){
+        tournamentsParticipant.push(value);
+      });
+    });
+
+    res.render('my-account', {user, tournaments, tournamentsParticipant});
+  }
+});
+
+// SEARCH 
+router.get('/q/:search', async function (req, res) {
+  if (typeof req.user == "undefined"){
+    res.render("index");
+  }
+  else{
+  var search = req.params.search;
+  var user = req.user;
+  console.log("search received is " + search);
+  var tournaments = [];
+  var regexQuery = {
+    $or: [
+    {name: new RegExp(search, 'i')},
+    {description: new RegExp(search, 'i')}
+    ]
+  };
+
+  //Tournament.createIndexes({ "$**": "text" });
+
+  
+  await Tournament.find(
+    regexQuery, function (err, data){
+      console.log("ENCONTRADO");
+      console.log(data);
+      
+    data.forEach(function(value){
+      tournaments.push(value);
+      console.log("TOURNAMENT FOUND IN SEARCH BAR: - --  - -- - - -");
+      console.log(value);
+    });
+  });
+  
+  res.render("search-results", {user, tournaments})
   }
 });
 

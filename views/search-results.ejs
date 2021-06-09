@@ -14,7 +14,7 @@
   </h5>
   <br>
   <h4 >
-    Mis torneos
+    Resultados de torneos:
   </h4>
   <div id="tournamentsContainer" class="tournaments">
     <% for (var i = 0; i < tournaments.length; i++) { %>
@@ -34,27 +34,5 @@
       </div>
       <br>
       <% } %>
-      <h4 >
-        Torneos donde participo
-      </h4>
-      <% for (var i = 0; i < tournamentsParticipant.length; i++) { %>
-        <% if (user.userID != tournamentsParticipant[i].owner) { %>
-        <div id= "specificTournament" >
-        <h4 >
-          <%= tournamentsParticipant[i].name %>
-        </h4>
-        <h5 >
-          <%= tournamentsParticipant[i].description %>
-        </h5>
-        <h5 >
-          owner: <%= tournamentsParticipant[i].owner %>
-        </h5>
-        <form action= <%= "/t/" + tournamentsParticipant[i]._id %> method="GET">
-        <button class="verMas"> Ver Más </button>
-      </form>
-        </div>
-        <br>
-        <% } %>
-        <% } %>
     </div>
 <%- include ("./partials/footer") %>

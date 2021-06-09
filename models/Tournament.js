@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const TournamentSchema = new mongoose.Schema({
     name:{
         type: String,
-        required: true
+        required: true,
     },
     description:{
         type: String,
-        required: true
+        required: true,
     },
     owner:{
         type: String,
-        required: true
+        required: true,
     },
     users:{
         type: Array,

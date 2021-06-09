@@ -49,8 +49,19 @@
     placeholder="join a tournament with an id"
   />
   <input type="submit" class="fadeIn fourth" id = "submitBtn"/>
+  <br>
+  <br>
+  <input
+        type="text"
+        id="searchBar"
+        name="searchBar"
+        class="fadeIn second"
+        placeholder="Search..."
+      />
+  <input type="submit" class="fadeIn fourth" id = "submitSearch"/>
 
 <script>
+    // unirse a torneo con id
     $(document).ready(function() {
         $("#submitBtn").click (function(event){
         event.preventDefault();
@@ -71,6 +82,38 @@
             console.log(respuesta.foo); //foo es una propiedad (clave), del json que devuelve el servidor
             //Tratamos a respuesta según sea el tipo  y la estructura  
             location.href= "/t/" + id;
+            return;             
+        });
+
+        //Este bloque se ejecuta si hay un error
+        request.fail(function(jqXHR, textStatus) {
+            alert("Hubo un error: " + textStatus);
+        });
+
+        });
+    });
+
+    // búsqueda
+    $(document).ready(function() {
+        $("#submitSearch").click (function(event){
+        event.preventDefault();
+        console.log("hola");
+        var search = $("#searchBar").val();
+        console.log("search is " +  search);
+
+        var request = $.ajax({
+          type: "GET",
+          url: "/q/" + search,
+          data: {saludo:"hola"},
+          dataType: "text"
+        });
+
+        //Este bloque se ejecutará si no hay error en la petición
+        request.done(function(respuesta) {
+            console.log(respuesta);
+            console.log(respuesta.foo); //foo es una propiedad (clave), del json que devuelve el servidor
+            //Tratamos a respuesta según sea el tipo  y la estructura  
+            location.href= "/q/" + search;
             return;             
         });
 
