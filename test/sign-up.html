@@ -18,11 +18,14 @@
 
     <script>
         function myFunction() {
-          var x = document.getElementById("password");
-          if (x.type === "password") {
+          var x = document.getElementById("password_register");
+          var y = document.getElementById("password2_register");
+          if (x.type === "password" || y.type === "password" ) {
             x.type = "text";
+            y.type = "text";
           } else {
             x.type = "password";
+            y.type = "password";
           }
         }
     </script>
@@ -81,6 +84,8 @@
             name="password2_register"
             placeholder="Repeat Password"
           />
+            <br>
+            <input type="checkbox" onclick="myFunction()"> Show Password
             <br>
             <input type="submit" class="fadeIn fourth" value="Sign Up" style="background-color: #de364d" >
           </form>
