@@ -151,11 +151,13 @@ router.post('/sign-up', (req, res) => {
 
 router.get('/createT', (req, res) => {
   if (typeof req.user == "undefined"){
+    console.log("Redirected");
     res.render("index");
   }
   else{
   var name = req.user.name;
   res.render('t-create', {name});
+  res.render('t-create');
   }
 });
 
@@ -180,6 +182,7 @@ router.post('/createT', async function (req, res) {
 // All tournaments
 router.get('/t', (req, res) => {
   const tournaments_per_row = 3;
+  //var tournaments = Tournament.find({isPrivate: false});
   var tournaments = [];
 
   var tournament = new Tournament ({
@@ -195,10 +198,24 @@ router.get('/t', (req, res) => {
   tournaments.push(tournament);
   tournaments.push(tournament);
 
-  //console.log(tournaments.length % tournaments_per_row);
-  //const path = require('path');
-  //console.log(path.join(__dirname, '/public'));
+  console.log(tournaments.length % tournaments_per_row);
 
+  res.render('t-main', {tournaments, tournaments_per_row});
+});
+
+router.post('/findT', (req, res) => {
+  const tournaments_per_row = 3;
+  console.log(req.body.search);
+
+  var tournaments = [];
+  res.render('t-main', {tournaments, tournaments_per_row});
+});
+
+router.post('/joinT', (req, res) => {
+  const tournaments_per_row = 3;
+  console.log(req.body.code);
+
+  var tournaments = [];
   res.render('t-main', {tournaments, tournaments_per_row});
 });
 

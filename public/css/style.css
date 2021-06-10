@@ -1,12 +1,52 @@
 :root {
-    --background-color: rgb(109, 0, 0);
+    --color-main: #de364d;
+    /* --color-background: rgb(109, 0, 0); */
+    --button-background-color-hover: #0255C9;
 }
 
 body {
     padding-top: 85px;
-    background-color: var(--background-color);
+    background-color: white;
 }
 
 .container {
     background-color: white;
+}
+
+.container-main {
+    border: solid gray 1px;
+}
+
+nav.navbar {
+    background-color: var(--color-main);
+    color: white;
+}
+
+.navbar-container {
+    background-color: var(--color-main);
+    color: white;
+}
+
+.nav-item {
+    margin: 0px 20px;
+}
+
+div.card {
+    border-color: var(--color-main);
+}
+
+.card-footer {
+    border-color: var(--color-main);
+    background-color: var(--color-main);
+}
+
+.jumbotron {
+    color: white;
+    margin-bottom: 20px;
+    background-position: 50% 100%;
+}
+
+hr {
+    border: 2px solid white;
+    opacity: 100%;
 }
