@@ -10,6 +10,7 @@
       </div>
   </div>
     <div class="row">
+      <form method="POST" action="/joinT">
       <div class="col">
         <input
           type="text"
@@ -19,10 +20,12 @@
           placeholder="ID"
         />
       </div>
+    </form>
       <div class="col">
         <input type="submit" class="fourth" id = "submitBtn" value="Unirse a torneo"/>
       </div>
       <div class="col"></div>
+      <form method="GET" action="/q">
       <div class="col">
         <input
         type="text"
@@ -35,6 +38,7 @@
       <div class="col">
         <input type="submit" class="fourth" id = "submitSearch" value="Buscar torneo"/>
       </div>
+    </form>
     </div>
   <% for (var i = 0; i < tournaments.length; i++) { %>
             <% if (i % tournaments_per_row == 0) { %>
@@ -44,17 +48,19 @@
                 <div class="card" style="width: 18rem;">
                     <!-- <img src="..." class="card-img-top" alt="..."> -->
                     <div class="card-body">
+                      <a href= <%= "/t/" +  tournaments[i]._id %>>
                         <h5 class="card-title"><%= tournaments[i].name %></h5>
+                      </a>
                         <p class="card-text fst-italic"><small class="text-muted"><%= tournaments[i].date.toLocaleString('default', { month: 'long' }) + ' ' + tournaments[i].date.getFullYear() %></small></p>
                         <p class="card-text"><%= tournaments[i].description %></p>
                         <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                        <form action= <%= "/t/" + tournaments[i]._id %> method="GET">
+                   <!--      <form action= <%= "/t/" + tournaments[i]._id %> method="GET">
                           <button class="verMas"> Ver Más </button>
                         </form>
                         <% if (tournaments[i].owner != currentUser && !isPresent[i]) { %>
                           <form action= <%= "/t/" + tournaments[i]._id  + "/join/" %> method="POST">
                             <button class="join"> join </button>
-                          </form>
+                          </form>  -->
                           <% } %>
                     </div>
                     <div class="card-footer"><a href=<%= "/u/" + tournaments[i].owner %> class="link-light"><%= tournaments[i].owner %></a></div>
