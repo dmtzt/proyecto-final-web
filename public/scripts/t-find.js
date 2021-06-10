@@ -5,10 +5,13 @@ $("#button-search").click(function(event) {
     console.log(search);
 
     if (validateSearch) {
-        $.post("/findT", {search}, (data, status) => {
-            window.location.assign('/');
+        $.get("/findT", {search}, (data, status) => {
+            //window.location.assign(`/t?search=${search}`);
+            location.href= `/t?search=${search}`;
+            $.get(`/t?search=${search}`, {search});
+            console.log(search);
         }).done(function(res) {
-            location.href= "/t";
+            //location.href= "/";
         });
     }
 });

@@ -249,9 +249,17 @@ router.get('/t', (req, res) => {
   //res.render('t-main', {tournaments, tournaments_per_row});
 });
 
-router.post('/findT', (req, res) => {
+router.get('/findT', (req, res) => {
   const tournaments_per_row = 3;
-  console.log(req.body.search);
+  console.log("Search: " + req.query.search);
+
+  var tournaments = [];
+  res.end();
+});
+
+router.get('/t?search=:search', (req, res) => {
+  const tournaments_per_row = 3;
+  console.log("Search: " + req.params.search);
 
   var tournaments = [];
   res.render('t-main', {tournaments, tournaments_per_row});
