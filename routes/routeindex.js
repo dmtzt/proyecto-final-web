@@ -34,7 +34,22 @@ mongoose.connect(uri,{
 // Main route
 router.get('/', async function (req,res) {
   // TODO
-  res.render('index');
+  res.render('welcome');
+});
+
+router.get('/sign-up', async function (req,res) {
+  // TODO
+  res.render('sign-up');
+});
+
+router.get('/log-in', async function (req,res) {
+  // TODO
+  res.render('sign-in');
+});
+
+router.get('/about-us', async function (req,res) {
+  // TODO
+  res.render('about-us');
 });
 
 // Sign-in get and post routes
@@ -404,5 +419,53 @@ router.get('/logout', (req,res) => {
 //     res.redirect('/'); //Inside a callback… bulletproof!
 //   });
 // });
+
+//Rutas para ver a otros usuarios
+router.get('/u/:id',  async function (req, res) {
+  var id = req.params.id;
+  console.log("id received is " + id);
+
+  var userFound = await User.find({userID: id}, (err, data) => {
+    console.log("user found");
+});
+
+
+console.log("USER FOUND: ")
+  console.log(userFound);
+  console.log(userFound[0].name);
+
+  var tournaments = [];
+  var tournamentsParticipant = [];
+
+    await Tournament.find({owner: id}, function (err, data){
+      data.forEach(function(value){
+        tournaments.push(value);
+        console.log("TOURNAMENT FOUND: - --  - -- - - -");
+        console.log(value);
+      });
+    });
+
+    await Tournament.find({
+      users: {"$in": [req.user.userID]}
+    }, function(err, data){
+      data.forEach(function (value){
+        tournamentsParticipant.push(value);
+      });
+    });
+
+  if (typeof req.user == "undefined"){
+    res.render("index");
+  }
+  else{
+    var uID = req.user.userID;
+    var user = req.user;
+    if (uID === id){
+      res.render('my-account', {user, tournaments, tournamentsParticipant});
+    }
+    else{
+    res.render('another-acc', {userFound, tournaments});
+    }
+  }
+});
 
 module.exports = router;
