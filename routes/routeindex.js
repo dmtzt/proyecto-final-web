@@ -381,12 +381,14 @@ router.get('/myAccount', async function (req, res) {
 });
 
 // SEARCH 
-router.get('/q/:search', async function (req, res) {
+router.get('/q', async function (req, res) {
+  var {searchBar} = req.query;
   if (typeof req.user == "undefined"){
     res.render("index");
   }
   else{
-  var search = req.params.search;
+  var search = searchBar;
+  
   var user = req.user;
   console.log("search received is " + search);
   var tournaments = [];
@@ -398,21 +400,29 @@ router.get('/q/:search', async function (req, res) {
   };
 
   //Tournament.createIndexes({ "$**": "text" });
-
+  const tournaments_per_row = 3;
   
-  await Tournament.find(
-    regexQuery, function (err, data){
+  await Tournament.find( regexQuery,  (err, data) => {
       console.log("ENCONTRADO");
       console.log(data);
-      
+      tournaments = [...data];
+      /*
     data.forEach(function(value){
       tournaments.push(value);
       console.log("TOURNAMENT FOUND IN SEARCH BAR: - --  - -- - - -");
       console.log(value);
     });
-  });
-  
-  res.render("search-results", {user, tournaments})
+    */
+    console.log("--------------Terminé");
+    console.log("HERE ARE THE TOURNAMENTS");
+    console.log(tournaments);
+
+    res.render("t-main", {tournaments, tournaments_per_row});
+  })
+ // t-main
+
+
+
   }
 });
 

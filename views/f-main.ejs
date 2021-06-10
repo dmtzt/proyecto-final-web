@@ -53,6 +53,7 @@
   <input type="submit" class="fadeIn fourth" id = "submitBtn"/>
   <br>
   <br>
+  <form action="/q" method="GET">
   <input
         type="text"
         id="searchBar"
@@ -61,6 +62,7 @@
         placeholder="Search..."
       />
   <input type="submit" class="fadeIn fourth" id = "submitSearch"/>
+</form>
 
 <script>
     // unirse a torneo con id
@@ -96,6 +98,7 @@
     });
 
     // búsqueda
+    /*
     $(document).ready(function() {
         $("#submitSearch").click (function(event){
         event.preventDefault();
@@ -116,6 +119,7 @@
             console.log(respuesta.foo); //foo es una propiedad (clave), del json que devuelve el servidor
             //Tratamos a respuesta según sea el tipo  y la estructura  
             location.href= "/q/" + search;
+           // $parents.html(response).fadeIn(); 
             return;             
         });
 
@@ -126,5 +130,6 @@
 
         });
     });
+    */
     </script>
 <%- include ("./partials/footer") %>
