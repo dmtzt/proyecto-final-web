@@ -391,7 +391,8 @@ router.get('/q', async function (req, res) {
   
   var user = req.user;
   console.log("search received is " + search);
-  var tournaments = [];
+  var tournamentsAll = [];
+  var tournaments= [];
   var regexQuery = {
     $or: [
     {name: new RegExp(search, 'i')},
@@ -405,7 +406,7 @@ router.get('/q', async function (req, res) {
   await Tournament.find( regexQuery,  (err, data) => {
       console.log("ENCONTRADO");
       console.log(data);
-      tournaments = [...data];
+      tournamentsAll = [...data];
       /*
     data.forEach(function(value){
       tournaments.push(value);
@@ -413,6 +414,13 @@ router.get('/q', async function (req, res) {
       console.log(value);
     });
     */
+   // remove private tournaments
+   for (var i = 0; i < tournamentsAll.length; i++){
+     if (!tournamentsAll[i].isPrivate){
+       tournaments.push(tournamentsAll[i]);
+     }
+   }
+
     console.log("--------------Terminé");
     console.log("HERE ARE THE TOURNAMENTS");
     console.log(tournaments);

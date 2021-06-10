@@ -37,12 +37,14 @@
                 <div class="card" style="width: 18rem;">
                     <!-- <img src="..." class="card-img-top" alt="..."> -->
                     <div class="card-body">
+                        <a href= <%= "/t/" +  tournaments[i]._id %>>
                         <h5 class="card-title"><%= tournaments[i].name %></h5>
+                    </a>
                         <p class="card-text fst-italic"><small class="text-muted"><%= tournaments[i].date.toLocaleString('default', { month: 'long' }) + ' ' + tournaments[i].date.getFullYear() %></small></p>
                         <p class="card-text"><%= tournaments[i].description %></p>
                         <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                     </div>
-                    <div class="card-footer"><a href="#" class="link-light"><%= tournaments[i].owner %></a></div>
+                    <div class="card-footer"><a href= <%= "/u/" +  tournaments[i].owner %> class="link-light"><%= tournaments[i].owner %></a></div>
                 </div>
             </div>
             <% if ((i + 1) % tournaments_per_row == 0) { %>
