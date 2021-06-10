@@ -32,7 +32,7 @@ mongoose.connect(uri,{
 // Main route
 router.get('/', async function (req,res) {
   // TODO
-  res.render('index');
+  res.render('welcome');
 });
 
 // Sign-in get and post routes
@@ -83,6 +83,16 @@ router.post('/home', (req, res, next) => {
 router.get('/sign-up', (req, res) => {
   // TODO
   res.render('sign-up');
+});
+
+router.get('/sign-in', (req, res) => {
+  // TODO
+  res.render('sign-in');
+});
+
+router.get('/about-us', (req, res) => {
+  // TODO
+  res.render('about-us');
 });
 
 router.post('/sign-up', (req, res) => {
