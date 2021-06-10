@@ -112,6 +112,11 @@ router.get('/about-us', (req, res) => {
   res.render('about-us');
 });
 
+router.get('/t-deleted', (req, res) => {
+  // TODO
+  res.render('t-deleted');
+});
+
 router.post('/sign-up', (req, res) => {
   // TODO
   var errors = [];
@@ -317,7 +322,7 @@ router.post('/t/:id/delete/:uID',  async function (req, res) {
 });
 
 // Join a tournament
-router.post('/t/:id/join', async function (req, res) {
+router.post('/t/:id', async function (req, res) {
   // TODO
   if (typeof req.user == "undefined"){
     res.render("index");
@@ -350,11 +355,11 @@ router.post('/t/:id/join', async function (req, res) {
 
 
 // delete tournament
-router.post('/t/:id/deleteT', async function (req, res) {
+router.post('/deleteT/:id', async function (req, res) {
   var id = req.params.id;
   console.log("id of tournament to be deleted received is " + id);
   await Tournament.findById(id).remove().then(
-    res.redirect(req.baseUrl + "/home/")
+    res.redirect(req.baseUrl + "/t-deleted/")
   );
 });
 
