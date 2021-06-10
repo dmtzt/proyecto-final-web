@@ -1,4 +1,57 @@
-<%- include ("./partials/header") %>
+<%- include ("./partials/header-ancho") %>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+        
+          <!-- Title -->
+          <div id="titlelabbel">
+            <h1>- Crear Torneo -</h1>
+          </div>
+
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="https://lh3.googleusercontent.com/proxy/CClUG2zFVisS_vOg0Jte-GZ-IMEGwVOp09Rm4HQ0I0vi0Q48o3gXn1wTxga34_3Sf8AxgC_kMyXiOVLhV_wfuZpu5Fqzm8pmm4vaSU9Nu2Tz4rU8lALzOs3KqeO_s1sjkQ" id="icon" alt="User Icon" />
+          </div>
+      
+          <!-- Login Form -->
+
+          <form action="/createT" method="POST">
+            <input
+            type="text"
+            id="name"
+            name="name"
+            class="fadeIn second"
+            placeholder="Nombre"
+          />
+            <input
+            type="text"
+            id="description"
+            name="description"
+            class="fadeIn second"
+            placeholder="Descripción"
+          />
+          <br>
+          <input
+            type="checkbox"
+            id="isPrivate"
+            name="isPrivate"
+            class="fadeIn second"
+          /> Private Tournament
+          <br>
+            <input type="submit" class="fadeIn fourth" value="Crear" style="background-color: #de364d">
+          </form>
+      
+          <!-- Remind Passowrd -->
+          <div id="formFooter">
+            <a class="underlineHover" href="about-us" style="color: white" >About us</a>
+          </div>
+      
+        </div>
+      </div>
+
 <p> Hello <%= name %> </p>
 <p> Crea un torneo </p>
 <form action="/createT" method="POST">
