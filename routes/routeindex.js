@@ -6,6 +6,8 @@ const router = express.Router();
 const bcrypt = require ("bcryptjs");
 const mongoose = require('mongoose');
 const passport = require("passport");
+//const axios = require('axios');
+const https = require('https');
 require("dotenv").config();
 require('../config/passport')(passport);
 
@@ -100,7 +102,7 @@ router.post('/sign-up', (req, res) => {
     errors.push({ msg: "Passwords should be at least 6 characters long"})
   }
   if (errors.length > 0){
-    //res.render("index", {errors});
+    res.render("index", {errors});
     console.log(errors);
   }
   else{
@@ -132,17 +134,22 @@ router.post('/sign-up', (req, res) => {
             newUser.save()
             .then(console.log("EXITO"))
             .catch(err => console.log(err));
+            req.login(newUser, function(err) {
+              if (err) {
+                console.log(err);
+              }
+              return res.redirect('/home');
+            });
           } ))
         console.log("---------------");
         console.log(newUser);
         console.log("---------------");
+       // res.redirect(307, "/home");
+
         // falta redirigir a pagina principal
       }
     });
   }
-
-
-  res.render('index');
 });
 
 // Tournaments routes
