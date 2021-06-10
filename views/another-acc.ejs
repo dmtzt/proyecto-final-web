@@ -1,23 +1,25 @@
 <%- include ("./partials/header") %>
-<form action="/home" method="GET">
 
+<form action="/home" method="GET">
     <button class="home"> Home </button>
   </form>
+  <br>
   <h4 >
-    <%= user.name %>
+    <%= userFound[0].name %>
   </h4>
   <h5 >
-    <%= user.userID %>
+    <%= userFound[0].userID %>
   </h5>
   <h5 >
-    owner: <%= user.email %>
+    <%= userFound[0].email %>
   </h5>
   <br>
   <h4 >
-    Resultados de torneos:
+    Sus torneos
   </h4>
   <div id="tournamentsContainer" class="tournaments">
     <% for (var i = 0; i < tournaments.length; i++) { %>
+        <% if (!tournaments[i].isPrivate) { %>
       <div id= "specificTournament" >
       <h4 >
         <%= tournaments[i].name %>
@@ -37,5 +39,7 @@
       </div>
       <br>
       <% } %>
+      <% } %>
     </div>
+
 <%- include ("./partials/footer") %>
