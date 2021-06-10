@@ -279,6 +279,39 @@ router.post('/joinT', (req, res) => {
   res.render('t-main', {tournaments, tournaments_per_row});
 });
 
+
+// Join a tournament
+router.post('/t/:id/join', async function (req, res) {
+  // TODO
+  if (typeof req.user == "undefined"){
+    res.render("index");
+  }
+  else{
+  var userID = req.user.userID;
+  var id = req.params.id;
+  console.log("id received for updating register is " + id);
+
+  var isPresent = await Tournament.findById(id).find({
+    users: {"$in": [userID]}
+  });
+
+  console.log(isPresent);
+
+  if (JSON.stringify(isPresent) === '[]'){
+    await Tournament.findById(id).updateOne(
+      { $push: { users: userID } }
+    );
+  } else{
+    console.log("User is already present");
+  };
+  
+  var tournamentSingle = await Tournament.findById(id, (err, data) => {
+    console.log("tournament retrieved");
+  });
+  res.render('t-single', {tournamentSingle, isOwner: false, currentUser: req.user.userID});
+  }
+});
+
 // Single tournament by id
 router.get('/t/:id',  async function (req, res) {
   var id = req.params.id;
