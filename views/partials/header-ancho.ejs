@@ -26,11 +26,29 @@
                 <li class="nav-item">
                 <a class="nav-link link-light" href="/t">Torneos</a>
                 </li>
-            </ul>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active link-light" href="/myAccount" data-bs-target="/myAccount" data-bs-toggle="modal">Mi cuenta</a>
-                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle link-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Hello
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li class="justify-content-center">
+                            <form action="/createT" method="GET">
+                                <input type="submit" class="fourth" value="Crear torneo"/>
+                            </form>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form action="/myAccount" method="GET">
+                                <input type="submit" class="fourth" value="Mi cuenta" />
+                            </form>
+                        </li>
+                        <li>
+                            <form action="/logout" method="GET">
+                                <input type="submit" class="fourth" value="Log out"/>
+                            </form>
+                        </li>
+                    </ul>
+                  </li>
             </ul>
             </div>
         </div>

@@ -54,6 +54,7 @@ router.get('/about-us', async function (req,res) {
 
 // Sign-in get and post routes
 router.get('/home', (req, res) => {
+  const tournaments_per_row = 3;
   // TODO
   //console.log(req.user);
   if (typeof req.user == "undefined"){
@@ -83,7 +84,7 @@ router.get('/home', (req, res) => {
       });
       console.log(tournaments);
       console.log(isPresent);
-    res.render('f-main', {name, tournaments, currentUser: req.user.userID, isPresent});
+    res.render('f-main', {name, tournaments, currentUser: req.user.userID, isPresent, tournaments_per_row});
     });
   }
 });
