@@ -1,22 +1,63 @@
-<%- include ("./partials/header") %>
-<form action="/home" method="GET">
+<%- include ("./partials/header-ancho") %>
 
-    <button class="home"> Home </button>
-  </form>
-  <h4 >
-    <%= user.name %>
-  </h4>
-  <h5 >
-    <%= user.userID %>
-  </h5>
-  <h5 >
-    <%= user.email %>
-  </h5>
-  <br>
-  <h4 >
-    Mis torneos
-  </h4>
-  <div id="tournamentsContainer" class="tournaments">
+<!-- Comienza modificacion -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+        
+          <!-- Title -->
+          <div id="titlelabbel">
+            <h1>- <%= user.name %> -</h1>
+          </div>
+
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="https://image.flaticon.com/icons/png/512/164/164600.png" id="icon" alt="User Icon"/>
+          </div>
+      
+          <!-- Login Form -->
+
+            <br>
+            <h3> User ID: </h3>
+            <h4> <%= user.userID %> </h4>
+            <br>
+            <h3> Email: </h3>
+            <h4> <%= user.email %> </h4>
+          </form>
+      
+          <!-- Remind Passowrd -->
+          <div id="formFooter">
+            <a class="underlineHover" href="about-us" style="color: white" >About us</a>
+          </div>
+      
+        </div>
+      </div>
+
+<!-- Finaliza modificacion -->
+
+<!-- Segunda Tarjeta -->
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+  
+    <!-- Title -->
+    <div id="titlelabbel">
+      <h1>- Mis torneos -</h1>
+    </div>
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://lh3.googleusercontent.com/proxy/CClUG2zFVisS_vOg0Jte-GZ-IMEGwVOp09Rm4HQ0I0vi0Q48o3gXn1wTxga34_3Sf8AxgC_kMyXiOVLhV_wfuZpu5Fqzm8pmm4vaSU9Nu2Tz4rU8lALzOs3KqeO_s1sjkQ" id="icon" alt="User Icon"/>
+    </div>
+    <br>
+
+    <!-- Login Form -->
+
     <% for (var i = 0; i < tournaments.length; i++) { %>
       <div id= "specificTournament" >
       <h4 >
@@ -29,34 +70,72 @@
         owner: <%= tournaments[i].owner %>
       </h5>
       <form action= <%= "/t/" + tournaments[i]._id %> method="GET">
-      <button class="verMas"> Ver Más </button>
+        <input type="submit" class="fadeIn fourth" value="Ver Más" style="background-color: #de364d" >
     </form>
       </div>
       <br>
       <% } %>
-      <h4 >
-        Torneos donde participo
-      </h4>
-      <% for (var i = 0; i < tournamentsParticipant.length; i++) { %>
-        <% if (user.userID != tournamentsParticipant[i].owner) { %>
-        <div id= "specificTournament" >
-        <h4 >
-          <%= tournamentsParticipant[i].name %>
-        </h4>
-        <h5 >
-          <%= tournamentsParticipant[i].description %>
-        </h5>
-        <a href=  <%= "/u/" + tournamentsParticipant[i].owner %> >
-          <h5>
-          <%= tournamentsParticipant[i].owner %>
-          </h5>
-          </a>
-        <form action= <%= "/t/" + tournamentsParticipant[i]._id %> method="GET">
-        <button class="verMas"> Ver Más </button>
-      </form>
-        </div>
-        <br>
-        <% } %>
-        <% } %>
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="about-us" style="color: white" >About us</a>
     </div>
+
+  </div>
+</div>
+
+<!-- Finaliza Segunda Tarjeta -->
+
+<!-- Tercera Tarjeta -->
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+  
+    <!-- Title -->
+    <div id="titlelabbel">
+      <h1>- Torneos donde participo -</h1>
+    </div>
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://lh3.googleusercontent.com/proxy/CClUG2zFVisS_vOg0Jte-GZ-IMEGwVOp09Rm4HQ0I0vi0Q48o3gXn1wTxga34_3Sf8AxgC_kMyXiOVLhV_wfuZpu5Fqzm8pmm4vaSU9Nu2Tz4rU8lALzOs3KqeO_s1sjkQ" id="icon" alt="User Icon"/>
+    </div>
+    <br>
+
+    <!-- Login Form -->
+
+    <% for (var i = 0; i < tournamentsParticipant.length; i++) { %>
+      <% if (user.userID != tournamentsParticipant[i].owner) { %>
+      <div id= "specificTournament" >
+      <h4 >
+        <%= tournamentsParticipant[i].name %>
+      </h4>
+      <h5 >
+        <%= tournamentsParticipant[i].description %>
+      </h5>
+      <a href=  <%= "/u/" + tournamentsParticipant[i].owner %> >
+        <h5>
+        <%= tournamentsParticipant[i].owner %>
+        </h5>
+        </a>
+      <form action= <%= "/t/" + tournamentsParticipant[i]._id %> method="GET">
+        <input type="submit" class="fadeIn fourth" value="Ver Más" style="background-color: #de364d" >
+    </form>
+      </div>
+      <br>
+      <% } %>
+      <% } %>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="about-us" style="color: white" >About us</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Finaliza Tercera Tarjeta -->
+
 <%- include ("./partials/footer") %>
