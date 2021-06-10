@@ -214,25 +214,39 @@ router.post('/createT', async function (req, res) {
 // All tournaments
 router.get('/t', (req, res) => {
   const tournaments_per_row = 3;
-  //var tournaments = Tournament.find({isPrivate: false});
   var tournaments = [];
+  console.log("----------------------------------------------------------------------");
+  Tournament.find({isPrivate: false}, (err, data) => {
+    tournaments = [...data];
+    console.log(tournaments);
 
-  var tournament = new Tournament ({
-    name: "Torneo",
-    description: "Descripción del torneo",
-    owner: "David",
-    users: [],
-    isPrivate: false
+    if (err) {
+      res.render('t-main', {tournaments: undefined, tournaments_per_row: undefined});
+    }
+
+    res.render('t-main', {tournaments, tournaments_per_row});
   });
+  //console.log(tournaments);
+  // var tournaments = [];
 
-  tournaments.push(tournament);
-  tournaments.push(tournament);
-  tournaments.push(tournament);
-  tournaments.push(tournament);
+  // var tournament = new Tournament ({
+  //   name: "Torneo",
+  //   description: "Descripción del torneo",
+  //   owner: "David",
+  //   users: [],
+  //   isPrivate: false
+  // });
+
+  // tournaments.push(tournament);
+  // tournaments.push(tournament);
+  // tournaments.push(tournament);
+  // tournaments.push(tournament);
+
+  console.log("Sale del query");
 
   console.log(tournaments.length % tournaments_per_row);
 
-  res.render('t-main', {tournaments, tournaments_per_row});
+  //res.render('t-main', {tournaments, tournaments_per_row});
 });
 
 router.post('/findT', (req, res) => {
